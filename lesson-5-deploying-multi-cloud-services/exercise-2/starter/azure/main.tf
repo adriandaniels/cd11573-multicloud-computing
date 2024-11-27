@@ -1,43 +1,30 @@
 data "azurerm_resource_group" "example" {
-  name     = "Regroup_4hEF_2G"
+  name     = "Regroup_5lblJAAm_aQ8"
 }
 
 ##### Your code starts here #####
 
-resource "azurerm_kubernetes_cluster" "example" {
-  name                = "example-aks1"
-  location            = data.azurerm_resource_group.example.location
-  resource_group_name = data.azurerm_resource_group.example.name
-  dns_prefix          = "exampleaks1"
-
-  default_node_pool {
-    name       = "default"
-    node_count = 3
-    vm_size    = "Standard_D2s_v3"
-  }
+resource "azurerm_arc_kubernetes_cluster" "example" {
+  name                         = "example-akcc"
+  resource_group_name          = data.azurerm_resource_group.example.name
+  location                     = data.azurerm_resource_group.example.location
+  agent_public_key_certificate = filebase64("testdata/public.cer")
 
   identity {
     type = "SystemAssigned"
   }
 
   tags = {
-    Environment = "Production"
+    ENV = "Test"
   }
 }
 
-output "client_certificate" {
-  value     = azurerm_kubernetes_cluster.example.kube_config.0.client_certificate
-  sensitive = true
-}
-
-output "kube_config" {
-  value = azurerm_kubernetes_cluster.example.kube_config_raw
-
-  sensitive = true
+provider "azurerm" {
+  features {}
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "tscottoudacitystorage"
+  name                     = "windowsfunctionappsa"
   resource_group_name      = data.azurerm_resource_group.example.name
   location                 = data.azurerm_resource_group.example.location
   account_tier             = "Standard"
@@ -53,7 +40,7 @@ resource "azurerm_service_plan" "example" {
 }
 
 resource "azurerm_windows_function_app" "example" {
-  name                = "tscotto-udacity-windows-function-app"
+  name                = "example-windows-function-app"
   resource_group_name = data.azurerm_resource_group.example.name
   location            = data.azurerm_resource_group.example.location
 
