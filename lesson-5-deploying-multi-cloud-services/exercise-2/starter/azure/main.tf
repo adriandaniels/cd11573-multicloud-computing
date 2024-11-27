@@ -4,21 +4,6 @@ data "azurerm_resource_group" "example" {
 
 ##### Your code starts here #####
 
-resource "azurerm_arc_kubernetes_cluster" "example" {
-  name                         = "example-akcc"
-  resource_group_name          = data.azurerm_resource_group.example.name
-  location                     = data.azurerm_resource_group.example.location
-  agent_public_key_certificate = filebase64("testdata/public.cer")
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  tags = {
-    ENV = "Test"
-  }
-}
-
 resource "azurerm_storage_account" "example" {
   name                     = "windowsfunctionappsa"
   resource_group_name      = data.azurerm_resource_group.example.name
