@@ -19,10 +19,6 @@ resource "azurerm_arc_kubernetes_cluster" "example" {
   }
 }
 
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_storage_account" "example" {
   name                     = "windowsfunctionappsa"
   resource_group_name      = data.azurerm_resource_group.example.name
