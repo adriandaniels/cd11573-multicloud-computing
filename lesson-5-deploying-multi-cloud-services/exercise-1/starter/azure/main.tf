@@ -1,7 +1,3 @@
-data "azurerm_resource_group" "example" {
-  name     = "Regroup_4hEF_2G"
-}
-
 ##### Your code starts here #####
 
 data "azurerm_resource_group" "example" {
